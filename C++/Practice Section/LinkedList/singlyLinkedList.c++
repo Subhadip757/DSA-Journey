@@ -1,90 +1,80 @@
 #include <iostream>
 using namespace std;
 
-class Node {
+class Node{
 public:
     int data;
     Node* next;
 
-    Node(int data) {
-        this->data = data;
-        this->next = NULL;
+    Node(int d){
+        this -> data = d;
+        this -> next = NULL;
     }
 };
 
-void InsertAtHead(Node*& head, int data) {
+void insertAtHead(Node* &head, int data){
     Node* temp = new Node(data);
-    temp->next = head;
+    temp -> next = head;
     head = temp;
 }
 
-void InsertAtTail(Node*& tail, int data) {
+void insertAtTail(Node* &tail, int data){
     Node* temp = new Node(data);
-    if (tail == NULL) {
-        cout << "Tail is NULL" << endl;
-        return;
-    }
-    tail->next = temp;
-    tail = temp;
+    tail -> next = temp;
+    tail = tail -> next;
 }
 
-void insertAtPosition(Node*& head, Node*& tail, int position, int data) {
-    if (position == 1) {
-        InsertAtHead(head, data);
+void print(Node* head){
+    Node* temp = head;
+
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> next;
+    }
+    cout<<endl;
+}
+
+void insertAtPosition(Node* &head, Node* &tail, int position, int data){
+    if(position == 1){
+        insertAtHead(head, data);
         return;
     }
 
-    Node* temp = head;
+    Node *curr = head;
     int count = 1;
 
-    while (count < position - 1 && temp != NULL) {
-        temp = temp->next;
+    while(count < position - 1){
+        curr = curr -> next;
         count++;
     }
-
-    if (temp == NULL) {
-        cout << "Position out of bounds" << endl;
+    
+    if(curr -> next == NULL){
+        insertAtTail(tail, data);
         return;
     }
 
-    if (temp->next == NULL) {
-        InsertAtTail(tail, data);
-        return;
-    }
-
-    Node* nodeToInsert = new Node(data);
-    nodeToInsert->next = temp->next;
-    temp->next = nodeToInsert;
+    Node* newNode = new Node(data);
+    newNode -> next = curr -> next;
+    curr -> next = newNode;
 }
 
-void deleteAtPosition(int position, Node* &head, Node* &tail){
-    if(head == NULL){
-        cout<<"Empty list"<<endl;
-        return;
-    }
-
+void NodeToDelete(Node* head, Node* tail, int position){
     if(position == 1){
         Node* temp = head;
         head = head -> next;
         temp -> next = NULL;
-
         delete temp;
         return;
     }
 
-    Node* prev = NULL;
-    Node* curr = head;
     int count = 1;
+    Node* curr = head;
+    Node* prev = NULL;
 
     while(count < position && curr != NULL){
         prev = curr;
         curr = curr -> next;
         count++;
-    }
-
-    if(curr == NULL){
-        cout<<"Position out of bonds"<<endl;
-        return;
     }
 
     if(curr -> next == NULL){
@@ -94,65 +84,20 @@ void deleteAtPosition(int position, Node* &head, Node* &tail){
     prev -> next = curr -> next;
     curr -> next = NULL;
     delete curr;
+
 }
 
-void print(Node*& head) {
-    Node* temp = head;
-    while (temp != NULL) {
-        cout << temp->data << " ";
-        temp = temp->next;
-    }
-    cout << endl;
-}
+int main(){
+    Node* newNode = new Node(10);
+    Node* head = newNode;
+    Node* tail = newNode;
 
-Node* floydcycleDetection(Node* head){
-    if(head == NULL){
-        return NULL;
-    }
-    Node* slow = head;
-    Node* fast = head;
-
-    while(fast != NULL && slow != NULL){
-        fast = fast -> next;
-
-        if(fast != NULL){
-            fast = fast -> next;
-        }
-        slow = slow -> next;
-
-        if(slow == fast){
-            return slow;
-        }
-    }
-    return NULL;
-}
-
-int main() {
-    Node* node1 = new Node(10);
-
-    Node* head = node1;
-    Node* tail = node1;
-
-    InsertAtHead(head, 20);
+    insertAtHead(head, 20);
     print(head);
 
-    InsertAtHead(head, 30);
+    insertAtTail(tail, 30);
     print(head);
 
-    InsertAtTail(tail, 40);
+    insertAtPosition(head, tail, 3, 40);
     print(head);
-
-    insertAtPosition(head, tail, 2, 50);
-    print(head);
-
-    deleteAtPosition(2, head, tail);
-    print(head);
-
-    if(floydcycleDetection(head) != NULL){
-        cout<<"Loop present";
-    }else{
-        cout<<"Not present";
-    }
-
-    return 0;
 }

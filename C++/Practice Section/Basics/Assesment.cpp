@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -93,6 +94,28 @@ int fibonacci(int num){
     return fibonacci(num-1)+fibonacci(num-2);
 }
 
+int maximum(vector<int> arr){
+    int max = INT_MIN;
+
+    for(int i=0; i<arr.size(); i++){
+        if(arr[i] > max){
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+int minimum(vector<int> arr){
+    int min = INT_MAX;
+
+    for(int i=0; i<arr.size(); i++){
+        if(arr[i] < min){
+            min = arr[i];
+        }
+    }
+    return min;
+}
+
 int main() {
     vector<int> arr1 = {1, 3, 4};
     vector<int> arr2 = {2, 5, 6};
@@ -105,6 +128,14 @@ int main() {
     cout << endl;
 
     int num = 10;
-    cout<<fibonacci(num);
+    cout<<fibonacci(num)<<endl;
+
+    vector<int> maxi = {1,5,6,9,3,2};
+    int max_val = maximum(maxi);
+    int min_val = minimum(maxi);
+
+    cout<<"The maximum value is: "<<max_val<<endl;
+    cout<<"The minimum value is: "<<min_val<<endl;
+
     return 0;
 }
