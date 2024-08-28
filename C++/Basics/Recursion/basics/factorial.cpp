@@ -3,19 +3,16 @@
 using namespace std;
 
 int factorial(int n){
-    if(n == 0){
+    if(n == 0 || n == 1){
         return 1;
     }
-    
-    int result = n * factorial(n-1);
+    int result = n * factorial(n - 1);
     return result;
 }
 
 int main(){
-    int n;
-    cout<<"Enter number: "<<endl;
-    cin>>n;
-
+    int n = 5;
     int ans = factorial(n);
-    cout<<ans<<endl;
+
+    cout<<"factorial: "<<ans;
 }

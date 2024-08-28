@@ -1,23 +1,17 @@
 #include <iostream>
-
 using namespace std;
 
-int fibonacci(int n){
-    for(int i = 0; i < n; i++){
-        if(n <= 1){
-            return 1;
-        }else{
-            return fibonacci(n-1) + fibonacci(n-2);
-        }
+int fib(int n){
+    if(n <= 1){
+        return n;
     }
-
+    int result = fib(n - 1) + fib(n - 2);
+    return result;
 }
 
 int main(){
-    int n;
-    cout<<"Enter range: ";
-    cin>>n;
-    cout<<endl;
-    int result = fibonacci(n);
-    cout<<result;
+    int n = 10;
+    int ans = fib(n);
+
+    cout<<"Answer: "<<ans;
 }

@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 class Node{
@@ -12,45 +12,36 @@ public:
     }
 };
 
-void insertAtHead(Node* &head, int data){
+void insertHead(Node* &head, int data){
     Node* temp = new Node(data);
     temp -> next = head;
     head = temp;
 }
 
-void insertAtTail(Node* &tail, int data){
+void insertTail(Node* &tail, int data){
     Node* temp = new Node(data);
     tail -> next = temp;
     tail = tail -> next;
 }
 
-void print(Node* head){
-    Node* temp = head;
-
-    while(temp != NULL){
-        cout<<temp -> data<<" ";
-        temp = temp -> next;
-    }
-    cout<<endl;
-}
-
-void insertAtPosition(Node* &head, Node* &tail, int position, int data){
+void insertPosition(Node* head, Node* tail, int position, int data){
     if(position == 1){
-        insertAtHead(head, data);
+        insertHead(head, data);
         return;
     }
 
-    Node *curr = head;
+
+    Node* curr = head;
     int count = 1;
 
+    if(curr -> next == NULL){
+        insertTail(tail, data);
+        return;
+    }
+    
     while(count < position - 1){
         curr = curr -> next;
         count++;
-    }
-    
-    if(curr -> next == NULL){
-        insertAtTail(tail, data);
-        return;
     }
 
     Node* newNode = new Node(data);
@@ -58,12 +49,17 @@ void insertAtPosition(Node* &head, Node* &tail, int position, int data){
     curr -> next = newNode;
 }
 
-void NodeToDelete(Node* head, Node* tail, int position){
+void deletePosition(Node* &head, Node* &tail, int position){
+    if(head == NULL){
+        cout<<"Empty list!!"<<endl;
+        return;
+    }
+
     if(position == 1){
-        Node* temp = head;
+        Node* curr = head;
         head = head -> next;
-        temp -> next = NULL;
-        delete temp;
+        curr -> next = NULL;
+        delete curr;
         return;
     }
 
@@ -71,12 +67,15 @@ void NodeToDelete(Node* head, Node* tail, int position){
     Node* curr = head;
     Node* prev = NULL;
 
-    while(count < position && curr != NULL){
+    while(count < position){
         prev = curr;
         curr = curr -> next;
         count++;
     }
 
+    if(curr == NULL){
+        return;
+    }
     if(curr -> next == NULL){
         tail = prev;
     }
@@ -84,20 +83,38 @@ void NodeToDelete(Node* head, Node* tail, int position){
     prev -> next = curr -> next;
     curr -> next = NULL;
     delete curr;
+}
 
+void print(Node* &head){
+    Node* curr = head;
+    while(curr != NULL){
+        cout<<curr -> data<<" ";
+        curr = curr -> next;
+    }
+    cout<<endl;
 }
 
 int main(){
-    Node* newNode = new Node(10);
-    Node* head = newNode;
-    Node* tail = newNode;
+    Node* n1 = new Node(0);
 
-    insertAtHead(head, 20);
+    Node* head = n1;
+    Node* tail = n1;
+
+    insertHead(head, 10);
     print(head);
 
-    insertAtTail(tail, 30);
+    insertHead(head, 20);
     print(head);
 
-    insertAtPosition(head, tail, 3, 40);
+    insertTail(tail, 30);
+    print(head);
+
+    insertTail(tail, 40);
+    print(head);
+
+    insertPosition(head, tail, 4, 50);
+    print(head);
+
+    deletePosition(head, tail, 2);
     print(head);
 }
