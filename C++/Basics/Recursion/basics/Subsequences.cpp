@@ -2,6 +2,7 @@
 #include <vector>
 using namespace std;
 
+//striver approach
 void printF(int ind, vector<int> &ds, int arr[], int n){
     if(ind == n){
         for(auto it : ds){
@@ -14,18 +15,42 @@ void printF(int ind, vector<int> &ds, int arr[], int n){
         return;
     }
 
-    //take or pick the particular index into the subsequence
     ds.push_back(arr[ind]);
     printF(ind + 1, ds, arr, n);
 
     ds.pop_back();
-    //not pick, or not take condition, this element is not added to your subsequence
     printF(ind + 1, ds, arr, n);
 }
 
+
+//Coder army approach
+void subs(int ind, vector<int> &out, int arr[], vector<vector<int>> &ans, int n){
+    if(ind == n){
+        ans.push_back(out);
+        return;
+    }
+
+    subs(ind + 1, out, arr, ans, n);
+
+    out.push_back(arr[ind]);
+    subs(ind + 1, out, arr, ans, n);
+
+    out.pop_back();
+}
 int main(){
-    int arr[] = {3, 1, 2};
+    int arr[] = {1, 2, 3};
     int n = 3;
     vector<int> a;
+    vector<vector<int>> ans;
+
     printF(0, a, arr, n);
+
+    subs(0, a, arr, ans, n);
+
+    for(int i = 0; i < ans.size(); i++){
+        for(int j = 0; j < ans[i].size(); j++){
+            cout<<ans[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 }

@@ -1,48 +1,62 @@
-#include <iostream>
-#include <cstring>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-class Students{
-    private:
-        string studentName;
-        int studentRoll;
-        int studentAge;
+int first(vector<int> &nums, int target){
+    int start = 0;
+    int end = nums.size() - 1;
+    int ans = -1;
 
-    public:
-        string getStudentName(){
-            return studentName;
-        }
-        void setStudentName(string studentName){
-            this-> studentName = studentName;
-        }
+    while(start <= end){
+        int mid = start + (end - start)/2;
 
-        int getStudentRoll(){
-            return studentRoll;
+        if(nums[mid] == target){
+            ans = mid;
+            end = mid - 1;  
         }
-
-        void setStudentRoll(int studentRoll){
-            this->studentRoll = studentRoll;
+        else if(nums[mid] > target){
+            end = mid - 1;
         }
-
-        int getStudentAge(){
-            return studentAge;
+        else{
+            start = mid + 1;
         }
+    }
+    return ans;  
+}
 
-        void setStudentAge(int studentAge){
-            this->studentAge = studentAge;
+int last(vector<int> &nums, int target){
+    int start = 0;
+    int end = nums.size() - 1;
+    int ans = -1;
+
+    while(start <= end){
+        int mid = start + (end - start)/2;
+
+        if(nums[mid] == target){
+            ans = mid;
+            start = mid + 1;  
         }
+        else if(nums[mid] > target){
+            end = mid - 1;
+        }
+        else{
+            start = mid + 1;
+        }
+    }
+    return ans;  
+}
 
-};
+vector<int> searchRange(vector<int>& nums, int target) {
+    int firstIndex = first(nums, target);
+    int lastIndex = last(nums, target);
+
+    return {firstIndex, lastIndex}; 
+}
 
 int main(){
-    Students obj;
+    vector<int> nums = {1, 3, 5, 8, 8, 10}; 
+    int target = 8;
 
-    obj.setStudentName("Subhadip");
-    obj.setStudentRoll(71);
-    obj.setStudentAge(21);
-
-    cout<<"Name: "<<obj.getStudentName()<<", ";
-    cout<<"Roll: "<<obj.getStudentRoll()<<", ";
-    cout<<"Age: "<<obj.getStudentAge()<<endl;
+    vector<int> result = searchRange(nums, target);  
+    cout << "First Occurrence: " << result[0] << "\n";
+    cout << "Last Occurrence: " << result[1] << "\n";  
 }
