@@ -1,74 +1,54 @@
-#include <iostream>
-
+#include<iostream>
+#include<vector>
 using namespace std;
 
-void merge(int* arr, int s, int e){
-    int mid = (s+e)/2;
+void merge(vector<int> &arr, int start, int mid, int end){
+    vector<int> temp;
+    
+    int i = start;
+    int j = mid + 1;
 
-    int len1 = mid - s + 1;
-    int len2 = e - mid;
-
-    int* first = new int[len1];
-    int* second = new int[len2];
-
-    int mainArrayIndex = s;
-    for(int i=0; i<len1; i++){
-        first[i] = arr[mainArrayIndex++];
-    }
-
-    mainArrayIndex = mid + 1;
-    for(int i=0; i<len2; i++){
-        second[i] = arr[mainArrayIndex++];
-    }
-
-    int index1 = 0;
-    int index2 = 0;
-    mainArrayIndex = s;
-
-    while(index1 < len1 && index2 < len2){
-        if(first[index1] < second[index2]){
-            arr[mainArrayIndex++] = first[index1++];
+    while(i <= mid && j <= end){
+        if(arr[i] <= arr[j]){
+            temp.push_back(arr[i]);
+            i++;
         }
         else{
-            arr[mainArrayIndex++] = second[index2++];
+            temp.push_back(arr[j]);
+            j++;
         }
     }
-    while(index1 < len1){
-        arr[mainArrayIndex++] = first[index1++];
-    }
-    while(index2 < len2){
-        arr[mainArrayIndex++] = second[index2++];
-    }
 
-    delete[] first;
-    delete[] second;
+    while(i <= mid){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j <= end){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    
+    for(int ind = 0; ind < temp.size(); ind++){
+        arr[start + ind] = temp[ind];
+    }
 }
 
-void mergeSort(int* arr, int s, int e){
-    if(s >= e){
-        return ;
+void mergeSort(vector<int> &arr, int start, int end){
+    if(start < end){
+        int mid = start + (end - start)/2;
+
+        mergeSort(arr, start, mid);
+        mergeSort(arr, mid + 1, end);
+        merge(arr, start, mid, end);
     }
-    int mid = (s+e)/2;
-
-    //left part
-    mergeSort(arr,s,mid);
-
-    //right part
-    mergeSort(arr, mid + 1, e);
-
-    merge(arr, s, e);
 }
 
 int main(){
-    int arr[5] = {2,5,1,6,9};
-    int n = 5;
-
-    mergeSort(arr, 0, n-1);
-
-    for(int i=0; i<n; i++){
-        cout<<arr[i]<<" ";
+    vector<int> arr = {7, 2, 9, 25, 12, 19, 11, 5};
+    mergeSort(arr, 0, arr.size() - 1);
+    
+    for(int n : arr){
+        cout<<n<<" ";
     }
     cout<<endl;
-
-    return 0;
 }

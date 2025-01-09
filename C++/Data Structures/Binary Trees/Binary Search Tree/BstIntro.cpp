@@ -1,227 +1,151 @@
 #include <iostream>
-#include <queue>
-
+#include <vector>
 using namespace std;
 
-class Node{
-    public:
-        int data;
-        Node* left;
-        Node* right;
+class Node
+{
+public:
+    int data;
+    Node *left, *right;
 
-    Node(int d){
-        this -> data = d;
-        this -> left = NULL;
-        this -> right = NULL;
+    Node(int size)
+    {
+        data = size;
+        left = right = NULL;
     }
 };
 
-Node* insertIntoBST(Node* root, int d){
-    //base case
-    if(root == NULL){
-        root = new Node(d);
-        return root;
+// Insert a node into the BST
+Node *insert(Node *root, int x)
+{
+    if (root == NULL)
+    {
+        Node *temp = new Node(x);
+        return temp;
     }
-
-    if(d > root -> data){
-        root -> right = insertIntoBST(root -> right, d);
+    if (root->data > x)
+    {
+        root->left = insert(root->left, x);
     }
-    else{
-        root -> left = insertIntoBST(root -> left, d);
+    else
+    {
+        root->right = insert(root->right, x);
     }
     return root;
 }
 
-
-
-Node* minVal(Node* root){
-    Node* temp = root;
-
-    while(temp -> left != NULL){
-        temp = temp -> left;
+// Search for a value in the BST
+bool search(Node *root, int x)
+{
+    if (root == nullptr)
+    {
+        return false;
     }
-    return temp;
+    if (root->data == x)
+    {
+        return true;
+    }
+    else if (root->data > x)
+    {
+        return search(root->left, x);
+    }
+    else
+    {
+        return search(root->right, x);
+    }
 }
 
-Node* maxVal(Node* root){
-    Node* temp = root;
-
-    while(temp -> right != NULL){
-        temp = temp -> right;
+// Find the minimum value node in a BST
+Node *findMin(Node *root)
+{
+    while (root->left != NULL)
+    {
+        root = root->left;
     }
-    return temp;
+    return root;
 }
 
-Node* deleteFromBST(Node* root, int val){
-    if(root == NULL){
-        return root;
+// Delete a node from the BST
+Node *deleteNode(Node *root, int x)
+{
+    if (root == NULL)
+    {
+        return root; // Node not found
     }
-    if(root -> data == val){
-        //0 child
-        if(root -> left == NULL && root -> right == NULL){
+
+    if (x < root->data)
+    {
+        root->left = deleteNode(root->left, x);
+    }
+    else if (x > root->data)
+    {
+        root->right = deleteNode(root->right, x);
+    }
+    else
+    {
+        // Node to be deleted found
+        if (root->left == NULL)
+        {
+            Node *temp = root->right;
             delete root;
-            return NULL;
+            return temp;
         }
-
-        //1 child
-        //left child
-        if(root -> left  != NULL && root -> right == NULL){
-            Node* temp = root -> left;
+        else if (root->right == NULL)
+        {
+            Node *temp = root->left;
             delete root;
             return temp;
         }
 
-        //right child
-        if(root -> left  != NULL && root -> right == NULL){
-            Node* temp = root -> right;
-            delete root;
-            return temp;
-        }
-
-        //2 child
-        if(root -> left != NULL && root -> right != NULL){
-            int mini = minVal(root -> right) -> data;
-            root -> data = mini;
-            root -> right = deleteFromBST(root -> right, mini);
-            return root;
-        }
-
+        // Node with two children: Get inorder successor
+        Node *temp = findMin(root->right);
+        root->data = temp->data;                           // Copy the inorder successor's value
+        root->right = deleteNode(root->right, temp->data); // Delete the successor
     }
-    else if(root -> data > val){
-        //left part me jao
-        root -> left = deleteFromBST(root -> left, val);
-        return root;
-    }
-    else{
-        //right part me jao
-        root -> right = deleteFromBST(root -> right, val);
-        return root;
-    }
+    return root;
 }
 
-void takeInput(Node* &root){
-    int data;
-    cin>>data;
-
-    while(data != -1){
-        root = insertIntoBST(root, data);
-        cin>>data;
-    }
-}
-
-void levelOrderTraversal(Node* root){
-    queue<Node*> q;
-    q.push(root);
-    q.push(NULL);
-
-    while(!q.empty()){
-        Node* temp = q.front();
-        q.pop();
-
-        if(temp == NULL){ //purana level complete traverse hochuka hai
-            cout<<endl;
-            if(!q.empty()){ //queue still has some child nodes
-                q.push(NULL);
-            }
-        }
-        else{
-            cout<<temp -> data <<" ";
-            if(temp -> left){
-                q.push(temp -> left);
-            }
-            if(temp -> right){
-                q.push(temp -> right);
-            }
-        }
-        
-    }
-}
-
-void inorder(Node* root){
-    // base case
-    if(root == NULL){
-        return ;
-    }
-    inorder(root -> left);
-    cout<<root -> data <<" ";
-    inorder(root -> right);
-}
-
-void preOrder(Node* root){
-    //base case
-    if(root == NULL){
+// Inorder traversal of the BST
+void inorder(Node *root)
+{
+    if (root == NULL)
+    {
         return;
     }
-    cout<<root->data<<" ";
-    preOrder(root -> left);
-    preOrder(root -> right);
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
 }
 
-void postOrder(Node* root){
-    if(root == NULL){
-        return;
+int main()
+{
+    vector<int> arr = {2, 9, 5, 19, 36, 26, 17, 30, 21};
+    Node *root = NULL;
+
+    // Insert nodes into the BST
+    for (int i = 0; i < arr.size(); i++)
+    {
+        root = insert(root, arr[i]);
     }
-    postOrder(root -> left);
-    postOrder(root -> right);
-    cout<<root -> data<<" ";
-}
 
-int main(){
-    Node* root = NULL;
+    // Insert another node
+    insert(root, 31);
 
-    cout<<"Enter data to create BST "<<endl;
-    takeInput(root);
-
-    cout<<"Printing the BST "<<endl;
-    levelOrderTraversal(root);
-
-    cout<<endl;
-
-    cout<<"Printing Inorder: "<<endl;
+    // Perform inorder traversal
+    cout << "Inorder traversal before deletion: ";
     inorder(root);
+    cout << endl;
 
-    cout<<endl;
+    // Delete a node
+    root = deleteNode(root, 19);
 
-    cout<<"Printing Preorder: "<<endl;
-    preOrder(root);
-
-    cout<<endl;
-
-    cout<<"Printing Postorder: "<<endl;
-    postOrder(root);
-
-    cout<<endl;
-
-    cout<<"Min Value is: "<<minVal(root) -> data<<endl;
-
-    cout<<"Max Value is: "<<maxVal(root) -> data<<endl;
-
-    //Deletion
-    root = deleteFromBST(root, 30);
-
-
-
-    cout<<"Printing the BST "<<endl;
-    levelOrderTraversal(root);
-
-    cout<<endl;
-
-    cout<<"Printing Inorder: "<<endl;
+    // Perform inorder traversal after deletion
+    cout << "Inorder traversal after deleting 19: ";
     inorder(root);
+    cout << endl;
 
-    cout<<endl;
+    // Search for a value in the BST
+    cout << (search(root, 28) ? "Present" : "Not Present") << endl;
 
-    cout<<"Printing Preorder: "<<endl;
-    preOrder(root);
-
-    cout<<endl;
-
-    cout<<"Printing Postorder: "<<endl;
-    postOrder(root);
-
-    cout<<endl;
-
-    cout<<"Min Value is: "<<minVal(root) -> data<<endl;
-
-    cout<<"Max Value is: "<<maxVal(root) -> data<<endl;
+    return 0;
 }
