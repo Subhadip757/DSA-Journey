@@ -147,8 +147,5 @@ int main() {
 
     DeleteNode(1, head);
     print(head);
-
-    cout << "Length of the list: " << getLength(head) << endl;
-
     return 0;
 }

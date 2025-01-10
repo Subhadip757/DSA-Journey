@@ -72,7 +72,10 @@ Node *deleteNode(Node *root, int x)
     {
         return root; // Node not found
     }
-
+    if(!root->left && !root->right){
+        delete root;
+        return NULL;
+    }
     if (x < root->data)
     {
         root->left = deleteNode(root->left, x);

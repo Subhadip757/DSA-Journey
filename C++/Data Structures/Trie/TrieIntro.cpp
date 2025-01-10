@@ -130,4 +130,11 @@ int main() {
     t->removeWord("abcd");
 
     if (t->searchWord("abcd")) {
-       
+        cout << "The word 'abcd' is still present in the trie." << endl;
+    } else {
+        cout << "The word 'abcd' has been removed from the trie." << endl;
+    }
+
+    delete t; // Clean up memory
+    return 0;
+}
