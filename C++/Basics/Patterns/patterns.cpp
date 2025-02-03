@@ -4,22 +4,22 @@ using namespace std;
 int main(){
 
     // Answer:
-    // 1234
-    // 1234
-    // 1234
+    // 54321
+    // 54321
+    // 54321
 
-    /*int n;
+    int n;
     cin>>n;
     int i = 1;
     while(i<=n){
         int j = 1;
         while(j <= n){
-            cout<<n-j+1;
+            cout<<j;
             j++;
         }
         cout<<endl;
         i++;
-    }*/
+    }
 
 // --------------------------------------------------------------------//
 
@@ -463,30 +463,30 @@ int main(){
     // 12******21
     // 1********1
 
-    int n = 5;
-    int i = n;
-    while(i>=1){
-        int j = 1;
-        while(j<=i){
-            cout<<j;
-            j++;
-        }
-        int star = n-i;
-        while(star){
-            cout<<'*';
-            star--;
-        }
-        int star2 = i - n;
-        while(star2){
-            cout<<'*';
-            star2++;
-        }
-        int newNum = j-1;
-        while(newNum){
-            cout<<newNum;
-            newNum--;
-        }
-        cout<<endl;
-        i--;
-    }
+    // int n = 5;
+    // int i = n;
+    // while(i>=1){
+    //     int j = 1;
+    //     while(j<=i){
+    //         cout<<j;
+    //         j++;
+    //     }
+    //     int star = n-i;
+    //     while(star){
+    //         cout<<'*';
+    //         star--;
+    //     }
+    //     int star2 = i - n;
+    //     while(star2){
+    //         cout<<'*';
+    //         star2++;
+    //     }
+    //     int newNum = j-1;
+    //     while(newNum){
+    //         cout<<newNum;
+    //         newNum--;
+    //     }
+    //     cout<<endl;
+    //     i--;
+    // }
 }

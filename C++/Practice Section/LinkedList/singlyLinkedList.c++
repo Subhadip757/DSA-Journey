@@ -1,100 +1,100 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 class Node{
-    int data;
+public:
+    int val;
     Node* next;
 
     Node(int d){
-        this -> data = d;
-        this -> next = NULL;
+        val = d;
+        next = nullptr;
     }
-
-    ~Node(){
-        int value = this -> data;
-        if(this -> next != NULL){
-            delete next;
-            this -> next = NULL;
-        }
-        cout<<"Memory free for node with data: "<<value<<endl;
-    }
-
 };
 
-void print(Node &head){
-    Node* temp = head;
-    while(temp != NULL){
-        cout<<temp -> data<<" ";
-        temp = temp -> next;
-    }
-    cout<<endl;
+void insertHead(Node* &head, int x){
+    Node* temp = new Node(x);
+    temp -> next = head;
+    head = temp;
 }
 
-void insertAtHead(Node &head, int val){
-    Node* temp = new Node(val);
-    temp = head;
-    head = head -> next;
-}
-
-void insertAtTail(Node &tail, int val){
-    Node* temp = new Node(val);
-
+void insertTail(Node* &tail, int x){
+    Node* temp = new Node(x);
     tail -> next = temp;
     tail = tail -> next;
 }
 
-void insertAtPosition(Node &head,Node &tail, int position, int val){
-    if(position == 1){
-        insertAtHead(head, val);
+void insertPosition(Node* &head, Node* &tail, int x, int p){
+    if(p == 1){
+        insertHead(head, x);
         return;
     }
 
-    Node* curr = head;
     int count = 1;
+    Node* curr = head;
 
-    while(count < position - 1){
+    while(count < p - 1 && curr != nullptr){
         curr = curr -> next;
         count++;
     }
 
-    if(curr -> next == NULL){
-        insertAtTail(tail, val);
-        return;
-    }
-
-    Node* temp = new Node(val);
+    Node* temp = new Node(x);
     temp -> next = curr -> next;
     curr -> next = temp;
 }
 
-void deleteAtPosition(Node &head, Node& tail, int position, int val){
-    if(position == 1){
-        Node* curr = head;
+void deletePosition(Node* &head, Node* &tail, int p){
+    if(p == 1){
+        Node* temp = head;
         head = head -> next;
-        curr -> next = NULL;
-        delete curr;
+        temp -> next = nullptr;
+        delete temp;
         return;
     }
 
-    Node* prev = NULL;
-    Node* curr = head;
     int count = 1;
+    Node* curr = head;
+    Node* prev = NULL;
 
-    while(count < position && curr != NULL){
+    while(count < p && curr != NULL){
         prev = curr;
-        curr = curr -> next;
+        curr = curr->next;
         count++;
     }
 
-    if(curr -> next == NULL){
-        tail = prev;
-    }
-
     prev -> next = curr -> next;
-    curr -> next = NULL;
+    curr -> next = nullptr;
     delete curr;
 }
 
-int main(){
+void print(Node* &head){
+    Node* curr = head;
 
+    while(curr != NULL){
+        cout<<curr->val<<" ";
+        curr = curr -> next;
+    }
+    cout<<endl;
+}
+
+
+
+int main(){
+    Node* n1 = new Node(10);
+
+    Node* head = n1;
+    Node* tail = n1;
+
+    insertHead(head,20);
+    insertHead(head,30);
+    print(head);
+
+    insertTail(tail, 40);
+    print(head);
+
+    insertPosition(head, tail, 50, 3);
+    print(head);
+
+    deletePosition(head, tail, 4);
+    print(head);
 }
