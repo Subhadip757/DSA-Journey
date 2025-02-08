@@ -64,7 +64,7 @@ void InsertAtPosition(Node* tail,Node* &head, int position, int d){
 
 }
 
-void DeleteNode(int position, Node*& head, Node*& tail) {
+void DeleteNode(int position, Node* &head, Node*& tail) {
     if (head == NULL) {
         cout << "List is empty " << endl;
         return;

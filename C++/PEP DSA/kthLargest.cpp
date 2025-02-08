@@ -2,30 +2,26 @@
 using namespace std;
 
 int kth(vector<int> &arr, int &k){
-    stack<int> st;
-    int count = 1;
-    st.push(arr[0]);
+    priority_queue<int, vector<int>, greater<int>> p;
 
-    while(!st.empty()){
-        int top = st.top();
-        for(int i = 0; i < arr.size(); i++){
-            if(arr[i] > top){
-                st.push(arr[i]);
-            }
+    for(int i = 0; i < k; i++){
+        p.push(arr[i]);
+    }
+
+    for(int i = k; i < arr.size(); i++){
+        if(p.top() < arr[i]){
+            p.pop();
+            p.push(arr[i]);
         }
     }
-
-    while(count < k){
-        st.pop();
-        count++;
-    }
-    return st.top();
+    return p.top();
 }
 
 int main(){
 
-    vector<int> arr = {3, 2, 1, 5, 6, 4};
+    vector<int> arr = {3, 2, 1, 5, 6, 8, 4};
     int k = 2;
-    cout<<kth(arr, k);
+
+    cout<<endl<<k<<"th Largest element is: "<<kth(arr, k)<<endl<<endl;
 
 }
