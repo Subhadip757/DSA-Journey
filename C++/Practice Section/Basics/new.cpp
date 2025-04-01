@@ -1,21 +1,11 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    long result = pow(2,31);
-    long ans = result % 5;
+int main()
+{
+    unordered_set<int> st = {1, 2, 3, 4, 5};
 
-    if(ans < 0){
-        ans += 5;
-    }
+    int top = st.erase(st.end());
 
-    cout<<ans;
-
-    ofstream fout;
-
-    fout.open("new.txt");
-
-    fout<<"This is a new file";
-
-    fout.close();
+    cout << top;
 }

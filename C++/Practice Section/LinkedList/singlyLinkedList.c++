@@ -1,100 +1,83 @@
-#include<bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
-class Node{
+class Node
+{
 public:
-    int val;
-    Node* next;
+    int data;
+    Node *next;
 
-    Node(int d){
-        val = d;
-        next = nullptr;
+    Node(int d)
+    {
+        this->data = d;
+        this->next = nullptr;
     }
 };
 
-void insertHead(Node* &head, int x){
-    Node* temp = new Node(x);
-    temp -> next = head;
+void insertHead(Node *&head, int v)
+{
+    Node *temp = new Node(v);
+    temp->next = head;
     head = temp;
 }
 
-void insertTail(Node* &tail, int x){
-    Node* temp = new Node(x);
-    tail -> next = temp;
-    tail = tail -> next;
+void insertTail(Node *&tail, int v)
+{
+    Node *temp = new Node(v);
+    tail->next = temp;
+    tail = tail->next;
 }
 
-void insertPosition(Node* &head, Node* &tail, int x, int p){
-    if(p == 1){
-        insertHead(head, x);
-        return;
+bool search(Node *&head)
+{
+    Node *temp = head;
+    int v;
+    cout << "Enter the value to search: ";
+    cin >> v;
+    while (temp)
+    {
+        if (temp->data == v)
+        {
+            return true;
+        }
+        temp = temp->next;
     }
-
-    int count = 1;
-    Node* curr = head;
-
-    while(count < p - 1 && curr != nullptr){
-        curr = curr -> next;
-        count++;
-    }
-
-    Node* temp = new Node(x);
-    temp -> next = curr -> next;
-    curr -> next = temp;
+    return false;
 }
 
-void deletePosition(Node* &head, Node* &tail, int p){
-    if(p == 1){
-        Node* temp = head;
-        head = head -> next;
-        temp -> next = nullptr;
-        delete temp;
-        return;
+void print(Node *&head)
+{
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        cout << temp->data << " ";
+        temp = temp->next;
     }
-
-    int count = 1;
-    Node* curr = head;
-    Node* prev = NULL;
-
-    while(count < p && curr != NULL){
-        prev = curr;
-        curr = curr->next;
-        count++;
-    }
-
-    prev -> next = curr -> next;
-    curr -> next = nullptr;
-    delete curr;
 }
 
-void print(Node* &head){
-    Node* curr = head;
+int main()
+{
+    Node *node1 = new Node(10);
+    Node *head = node1;
+    Node *tail = node1;
 
-    while(curr != NULL){
-        cout<<curr->val<<" ";
-        curr = curr -> next;
-    }
-    cout<<endl;
-}
-
-
-
-int main(){
-    Node* n1 = new Node(10);
-
-    Node* head = n1;
-    Node* tail = n1;
-
-    insertHead(head,20);
-    insertHead(head,30);
-    print(head);
-
+    insertTail(tail, 20);
+    insertTail(tail, 30);
     insertTail(tail, 40);
+    insertTail(tail, 50);
+
     print(head);
 
-    insertPosition(head, tail, 50, 3);
-    print(head);
+    int val = 20;
 
-    deletePosition(head, tail, 4);
-    print(head);
+    if (search(head))
+    {
+        cout << endl
+             << "Found";
+    }
+    else
+    {
+        cout << "Not found";
+    }
 }

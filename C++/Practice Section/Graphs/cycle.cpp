@@ -1,54 +1,44 @@
-#include<iostream>
-#include<vector>
+#include <bits/stc++.h>
 using namespace std;
 
-bool dfs(int node, int parent, vector<vector<int>> &adj, vector<bool> &vis){
-    vis[node] = true;
+bool dfs(vector<int> adj[], vector<bool> &vis, int st, int prev)
+{
+    vis[st] = true;
 
-    for(auto it : adj[node]){
-        if(!vis[node]){
-            if(!dfs(it, node, adj, vis)){
-                return false;
-            }
-        }
-        else if(it != node){
+    for (auto it : adj[st])
+    {
+        if (dfs(adj, vis, it, st))
+        {
             return true;
         }
     }
-    return false;
 }
 
-bool cycle(vector<vector<int>> &adj){
-    int V = adj.size();
-    vector<bool> vis(V, 0);
-    for(int i = 0; i < V; i++){
-        if(!vis[i]){
-            if(dfs(i, -1, adj, vis)){
-                return true;
-            }
-        }
-    }
-    return false;
+bool cycle(vector<int> adj[], int V, int prev)
+{
 }
 
-int main(){
-    int V,E;
-    cin>>V>>E;
+int main()
+{
+    int V = 8;
+    int E = 7;
 
-    vector<vector<int>> adj(V);
+    vector<int> adj[V];
 
-    for(int i = 0; i < E; i++){
-        int u,v;
-        cin>>u>>v;
+    adj[1].push_back(2);
+    adj[1].push_back(3);
+    adj[2].push_back(5);
+    adj[2].push_back(6);
+    adj[3].push_back(7);
+    adj[3].push_back(4);
+    adj[7].push_back(8);
 
-        adj[u][v] = 1;
-        adj[v][u] = 1;
+    if (cycle(adj, V))
+    {
+        cout << "Present";
     }
-
-    if(cycle(adj)){
-        cout<<"Cycle present";
-    }
-    else{
-        cout<<"Cycle not presenet";
+    else
+    {
+        cout << "Not Present";
     }
 }

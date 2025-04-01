@@ -6,9 +6,9 @@ using namespace std;
 
 void dfs(vector<vector<int>> &adj, stack<int> &st, vector<bool> &vis, int node){
     vis[node] = true;
-
     for(auto it : adj[node]){
-        if(!vis[it]){
+        if(!vis[node]){
+            vis[node] = true;
             dfs(adj, st, vis, it);
         }
     }
@@ -40,7 +40,6 @@ int main(){
     cin>>V>>E;
 
     vector<vector<int>> adj(V);
-    vector<bool> vis(V, 0);
 
     for(int i = 0; i < E; i++){
         int u,v;

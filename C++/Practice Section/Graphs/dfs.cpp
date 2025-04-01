@@ -1,35 +1,40 @@
-#include<iostream>
-#include<vector>
-
+#include <bits/stc++.h>
 using namespace std;
 
-void dfs(vector<vector<int>> &adj, vector<bool> &vis, int node){
-    cout<<node<<" ";
+void dfs(vector<vector<int>> adj, vector<bool> vis, int node)
+{
+    cout << node << " ";
     vis[node] = 1;
 
-    for(int i = 0; i < adj.size(); i++){
-        if(adj[node][i] != 0 && !vis[i]){
+    for (int i = 0; i < adj.size(); i++)
+    {
+        if (adj[node][i] != 0 && !vis[i])
+        {
             dfs(adj, vis, i);
         }
     }
 }
 
-int main(){
-    int v,e;
-    cout<<"Enter number of vertices and edges: \n";
-    cin>>v>>e;
+int main()
+{
+    int vertices = 5;
+    vector<vector<int>> adj = {
+        {0, 1, 1, 0, 0}, // Node 0 is connected to nodes 1 and 2
+        {1, 0, 0, 1, 0}, // Node 1 is connected to nodes 0 and 3
+        {1, 0, 0, 0, 1}, // Node 2 is connected to nodes 0 and 4
+        {0, 1, 0, 0, 0}, // Node 3 is connected to node 1
+        {0, 0, 1, 0, 0}  // Node 4 is connected to node 2
+    };
 
-    vector<vector<int>> adj(v, vector<int>(v, 0));
-    vector<bool> vis(v, 0);
+    // Visited array to keep track of visited nodes
+    vector<bool> vis(vertices, false);
 
-    cout<<"\nEnter paths: ";
-    for(int i = 0; i < e; i++){
-        int u,v;
-        cin>>u>>v;
+    // Starting node for DFS traversal
+    int startNode = 0;
 
-        adj[u][v] = 1;
-        adj[v][u] = 1;
-    }
+    // Perform DFS starting from the startNode
+    cout << "DFS Traversal: ";
+    dfs(adj, vis, startNode);
 
-    dfs(adj, vis, 0);
+    return 0;
 }

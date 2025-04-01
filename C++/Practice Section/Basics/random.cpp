@@ -1,23 +1,16 @@
-#include<iostream>
-#include<vector>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-void bs(vector<int> &arr, int n){
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n - i - 1; j++){
-            if(arr[j] > arr[j + 1]){
-                swap(arr[j], arr[j + 1]);
-            }
-        }
-    }
-}
+int main()
+{
+    unordered_set<int> us = {1, 2, 3, 4, 5};
 
-int main(){
-    vector<int> arr = {9, 4, 1, 8, 6, 10};
-    bs(arr, arr.size());
+    // Finding 4
+    auto it = us.find(4);
 
-    for( int it : arr){
-        cout<<it<<" ";
-    }
+    if (it != us.end())
+        cout << *it;
+    else
+        cout << "Element not Found!";
+    return 0;
 }

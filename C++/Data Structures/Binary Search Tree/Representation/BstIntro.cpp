@@ -72,7 +72,8 @@ Node *deleteNode(Node *root, int x)
     {
         return root; // Node not found
     }
-    if(!root->left && !root->right){
+    if (!root->left && !root->right)
+    {
         delete root;
         return NULL;
     }
@@ -120,9 +121,19 @@ void inorder(Node *root)
     inorder(root->right);
 }
 
+void preorder(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
 int main()
 {
-    vector<int> arr = {2, 9, 5, 19, 36, 26, 17, 30, 21};
+    vector<int> arr = {20, 9, 5, 19, 36, 15, 26, 17, 30, 21};
     Node *root = NULL;
 
     // Insert nodes into the BST
@@ -139,16 +150,24 @@ int main()
     inorder(root);
     cout << endl;
 
+    cout << "Preorder traversal before deletion: ";
+    preorder(root);
+    cout << endl;
+
     // Delete a node
     root = deleteNode(root, 19);
 
-    // Perform inorder traversal after deletion
+    // Perform preorder traversal after deletio
+    cout << "PreOrder traversal after deleting 19: ";
+    preorder(root);
+    cout << endl;
+
     cout << "Inorder traversal after deleting 19: ";
     inorder(root);
     cout << endl;
 
     // Search for a value in the BST
-    cout << (search(root, 28) ? "Present" : "Not Present") << endl;
+    cout << (search(root, 21) ? "Present" : "Not Present") << endl;
 
     return 0;
 }
