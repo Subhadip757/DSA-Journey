@@ -12,7 +12,7 @@ public:
 };
 
 // Helper function to build BST from preorder traversal
-TreeNode *buildBSTFromPreorder(int preorder[], int &index, int minVal, int maxVal, int size)
+TreeNode *bt(int preorder[], int &index, int minVal, int maxVal, int size)
 {
     if (index >= size)
         return nullptr;
@@ -24,8 +24,8 @@ TreeNode *buildBSTFromPreorder(int preorder[], int &index, int minVal, int maxVa
     TreeNode *root = new TreeNode(key);
     index++;
 
-    root->left = buildBSTFromPreorder(preorder, index, minVal, key, size);
-    root->right = buildBSTFromPreorder(preorder, index, key, maxVal, size);
+    root->left = bt(preorder, index, minVal, key, size);
+    root->right = bt(preorder, index, key, maxVal, size);
 
     return root;
 }
@@ -34,7 +34,7 @@ TreeNode *buildBSTFromPreorder(int preorder[], int &index, int minVal, int maxVa
 TreeNode *constructBST(int preorder[], int size)
 {
     int index = 0;
-    return buildBSTFromPreorder(preorder, index, INT_MIN, INT_MAX, size);
+    return bt(preorder, index, INT_MIN, INT_MAX, size);
 }
 
 // Inorder traversal for checking

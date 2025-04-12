@@ -12,18 +12,18 @@ public:
 };
 
 // Function to build a tree from inorder traversal
-TreeNode *buildTreeFromInorder(vector<int> &inorder, int start, int end)
+TreeNode *bt(vector<int> &inorder, int start, int end)
 {
     if (start > end)
     {
         return nullptr;
     }
 
-    int mid = (start + end) / 2;
+    int mid = start + (end - start) / 2;
     TreeNode *root = new TreeNode(inorder[mid]);
 
-    root->left = buildTreeFromInorder(inorder, start, mid - 1);
-    root->right = buildTreeFromInorder(inorder, mid + 1, end);
+    root->left = bt(inorder, start, mid - 1);
+    root->right = bt(inorder, mid + 1, end);
 
     return root;
 }
@@ -40,7 +40,7 @@ void printInorder(TreeNode *root)
 int main()
 {
     vector<int> inorder = {1, 2, 3, 4, 5, 6, 7};
-    TreeNode *root = buildTreeFromInorder(inorder, 0, inorder.size() - 1);
+    TreeNode *root = bt(inorder, 0, inorder.size() - 1);
 
     cout << "Inorder Traversal of Constructed Tree: ";
     printInorder(root);
