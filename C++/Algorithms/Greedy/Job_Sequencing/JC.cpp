@@ -27,9 +27,7 @@ vector<int> jobSequencing(vector<int> &deadline, vector<int> &profit)
     // sort the array on basis of profit in descending order
     sort(jobs.rbegin(), jobs.rend());
 
-    int maxDeadline = *max_element(deadline.begin(), deadline.end());
-
-    vector<bool> vis(maxDeadline + 1, 0);
+    vector<bool> vis(n + 1, 0);
 
     int maxJobs = 0, totalProfit = 0;
     for (auto &job : jobs)

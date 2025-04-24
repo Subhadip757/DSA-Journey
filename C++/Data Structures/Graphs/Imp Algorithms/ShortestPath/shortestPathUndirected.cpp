@@ -1,75 +1,55 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int> shortestPath(vector<pair<int, int>> &edges, int n, int m, int start, int target){
-    vector<int> adj[n + 1];
-    for(int i = 0; i < m; i++){
-        int u = edges[i].first;
-        int v = edges[i].second;
+vector<int> shortestPath(vector<vector<int>> adj, int start){
+    int V = adj.size();
+    vector<int> dist(V, -1);
+    vector<bool> vis(V, 0);
 
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-
-    vector<bool> vis(n + 1, false);
-    vector<int> parent(n + 1, -1);
     queue<int> q;
+    dist[start] = 0;
+    vis[start] = 1;
     q.push(start);
-    vis[start] = true;
 
     while(!q.empty()){
-        int front = q.front();
+        int node = q.front();
         q.pop();
 
-        for(auto it : adj[front]){
+        for(auto it : adj[node]){
             if(!vis[it]){
                 q.push(it);
+                dist[it] = dist[node] + 1;
                 vis[it] = true;
-                parent[it] = front;
             }
         }
     }
 
-    vector<int> ans;
-    int currNode = target;
-    ans.push_back(target);
-
-    while (currNode != start) {
-        currNode = parent[currNode];
-        ans.push_back(currNode);
-    }
-    reverse(ans.begin(), ans.end());
-    return ans;
+    return dist;
 }
 
 int main() {
-    // Input number of nodes (n), edges (m), start node, and target node
-    int n, m, start, target;
-    cout << "Enter number of nodes and edges: ";
-    cin >> n >> m;
-    
-    vector<pair<int, int>> edges(m);
-    cout << "Enter the edges (u v):" << endl;
-    for (int i = 0; i < m; i++) {
-        cin >> edges[i].first >> edges[i].second;
+    int V = 6;
+    int E = 6;
+
+    vector<pair<int, int>> edges = {
+        {5, 2},
+        {5, 0},
+        {4, 0},
+        {4, 1},
+        {2, 3},
+        {3, 1}
+    };
+
+    vector<vector<int>> adj(V);
+    for (auto [u, v] : edges) {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
 
-    cout << "Enter start and target nodes: ";
-    cin >> start >> target;
+    vector<int> dist = shortestPath(adj, 0);
 
-    // Find shortest path
-    vector<int> path = shortestPath(edges, n, m, start, target);
-
-    // Output result
-    if (path.empty()) {
-        cout << "No path exists from " << start << " to " << target << endl;
-    } else {
-        cout << "Shortest path: ";
-        for (int node : path) {
-            cout << node << " ";
-        }
-        cout << endl;
+    for(int i = 0; i < dist.size(); i++){
+        cout<<dist[i]<<" ";
     }
 
-    return 0;
 }

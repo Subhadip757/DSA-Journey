@@ -1,57 +1,65 @@
-#include<iostream>
-#include<stack>
-#include<vector>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-void dfs(vector<vector<int>> &adj, stack<int> &st, vector<bool> &vis, int node){
-    vis[node] = true;
-
-    for(auto it : adj[node]){
-        if(!vis[it]){
-            dfs(adj, st, vis, it);
-        }
-    }
-    st.push(node);
-}
-
-vector<int> topo(vector<vector<int>> &adj, int V){
-    stack<int> st;
-    vector<bool> vis(V, 0);
+vector<int> kahnAlgo(vector<vector<int>> adj, int V)
+{
+    vector<int> indeg(V, 0);
+    queue<int> q;
     vector<int> ans;
 
-    for(int i = 0; i < V; i++){
-        if(!vis[i]){
-            dfs(adj, st, vis, i);
+    for (int i = 0; i < V; i++)
+    {
+        for (auto it : adj[i])
+        {
+            indeg[it]++;
         }
     }
 
-    while(!st.empty()){
-        int node = st.top();
-        st.pop();
+    for (int i = 0; i < V; i++)
+    {
+        if (indeg[i] == 0)
+        {
+            q.push(i);
+        }
+    }
+
+    while (!q.empty())
+    {
+        int node = q.front();
+        q.pop();
         ans.push_back(node);
+
+        for (auto it : adj[node])
+        {
+            indeg[it]--;
+            if (indeg[it] == 0)
+            {
+                q.push(it);
+            }
+        }
     }
 
     return ans;
 }
 
-int main(){
-    int V, E;
-    cin>>V>>E;
-
+int main()
+{
+    int V;
+    int E;
+    cin >> V >> E;
     vector<vector<int>> adj(V);
-    vector<bool> vis(V, 0);
 
-    for(int i = 0; i < E; i++){
-        int u,v;
-        cin>>u>>v;
-
+    for (int i = 0; i < V; i++)
+    {
+        int u, v;
+        cin >> u >> v;
         adj[u].push_back(v);
     }
 
-    vector<int> res = topo(adj, V);
+    vector<int> ans = kahnAlgo(adj, V);
 
-    for(int it : res){
-        cout<<it<<" ";
+    for (int it : ans)
+    {
+        cout << it << " ";
     }
 }
