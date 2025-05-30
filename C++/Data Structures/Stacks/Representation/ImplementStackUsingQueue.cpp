@@ -19,7 +19,7 @@ public:
     int pop() {
         if (q.empty()) {
             cout << "Stack is empty!" << endl;
-            return -1; // Return an invalid value to indicate the stack is empty
+            return -1; 
         }
         int topElm = q.front();
         q.pop();
@@ -29,7 +29,7 @@ public:
     int top() {
         if (q.empty()) {
             cout << "Stack is empty!" << endl;
-            return -1; // Return an invalid value to indicate the stack is empty
+            return -1;
         }
         return q.front();
     }

@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> dijkstra(vector<vector<int>> &edges, int V, int E, int src){
+vector<int> dijkstra(vector<vector<int>> &vec, int V, int E, int src)
+{
     vector<vector<pair<int, int>>> adj(V);
 
-    for(auto edge : edges){
+    for(auto edge : vec){
         int u = edge[0];
         int v = edge[1];
         int w = edge[2];
@@ -15,7 +16,6 @@ vector<int> dijkstra(vector<vector<int>> &edges, int V, int E, int src){
 
     vector<int> dist(V, INT_MAX);
     dist[src] = 0;
-
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
     pq.push({0, src});
 
@@ -23,7 +23,9 @@ vector<int> dijkstra(vector<vector<int>> &edges, int V, int E, int src){
         auto [currDist, node] = pq.top();
         pq.pop();
 
-        for(auto &[nei, wei] : adj[node]){
+        for(auto it : adj[node]){
+            auto &[nei, wei] = it;
+
             if(dist[node] + wei < dist[nei]){
                 dist[nei] = dist[node] + wei;
                 pq.push({dist[nei], nei});
@@ -35,6 +37,7 @@ vector<int> dijkstra(vector<vector<int>> &edges, int V, int E, int src){
 
 int main()
 {
+    // Example input
     int vertices = 5; // Number of vertices
     int edges = 7;    // Number of edges
     int source = 0;   // Source node
@@ -65,5 +68,6 @@ int main()
             cout << "Node " << i << ": " << distances[i] << "\n";
         }
     }
+
     return 0;
 }

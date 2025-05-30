@@ -36,8 +36,7 @@ public:
         }
         else
         {
-            arr[rear] = data;
-            rear++;
+            arr[rear++] = data;
         }
     }
 
@@ -50,8 +49,7 @@ public:
         else
         {
             int ans = arr[qfront];
-            arr[qfront] = -1;
-            qfront++;
+            arr[qfront++] = -1;
             if (qfront == rear)
             {
                 qfront = 0;
