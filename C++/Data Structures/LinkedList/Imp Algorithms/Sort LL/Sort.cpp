@@ -21,6 +21,21 @@ void printList(Node* head) {
     cout << endl;
 }
 
+// Find the middle of the linked list
+Node* getMiddle(Node* head) {
+    if (!head) return head;
+
+    Node* slow = head;
+    Node* fast = head->next;
+
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+
 // Merge two sorted linked lists
 Node* merge(Node* left, Node* right) {
     if (!left) return right;
@@ -37,21 +52,6 @@ Node* merge(Node* left, Node* right) {
     }
 
     return result;
-}
-
-// Find the middle of the linked list
-Node* getMiddle(Node* head) {
-    if (!head) return head;
-
-    Node* slow = head;
-    Node* fast = head->next;
-
-    while (fast && fast->next) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-
-    return slow;
 }
 
 // Merge sort

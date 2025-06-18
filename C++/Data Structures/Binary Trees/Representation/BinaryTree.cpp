@@ -130,7 +130,7 @@ int main(){
 
     node* root = NULL;
 
-    /*root = buildTree(root);
+    root = buildTree(root);
 
     //1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
 
@@ -149,7 +149,7 @@ int main(){
     cout<<endl;
 
     cout<<"Post-Order traversal is: ";
-    postOrder(root);*/
+    postOrder(root);
 
     buildFromLevelOrder(root);
 

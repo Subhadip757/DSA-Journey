@@ -1,8 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void merge(int start, int mid, int end, vector<int> &arr){
+void merge(int start, int end, int mid, vector<int> &arr){
     vector<int> temp;
+    
     int i = start;
     int j = mid + 1;
 
@@ -35,19 +36,19 @@ void merge(int start, int mid, int end, vector<int> &arr){
 void mergeSort(int start, int end, vector<int> &arr){
     if(start < end){
         int mid = start + (end - start)/2;
-
         mergeSort(start, mid, arr);
         mergeSort(mid + 1, end, arr);
 
-        merge(start, mid, end, arr);
+        merge(start, end, mid, arr);
     }
 }
 
 int main(){
-    vector<int> arr = {8, 3, 1, 9, 13, 18, 11, 25, 21};
+    vector<int> arr = {5, 9, 1, 2, 10, 22, 8, 7};
     mergeSort(0, arr.size() - 1, arr);
 
-    for(int n : arr){
-        cout<<n<<" ";
+    for(int num : arr){
+        cout<<num<<" ";
     }
+
 }

@@ -1,61 +1,70 @@
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-class node{
+class TreeNode{
     public:
-        int data;
-        node* left = NULL;
-        node* right = NULL;
+        int val;
+        TreeNode* left;
+        TreeNode* right;
 
-    node(int val){
-        this -> data = val;
-        this -> left = NULL;
-        this -> right = NULL;
-    }
+        TreeNode(int d){
+            val = d;
+            left = nullptr;
+            right = nullptr;
+        }
 };
 
-node* buildTree(node* &root){
-    cout<<"Enter data for root node: ";
-    int data;
-    cin >> data;
 
-    root = new node(data);
-    
-    cout<<endl;
-
-    if(data == -1){
+int idx = -1;
+TreeNode* buildTree(vector<int> &preorder){
+    idx++;
+    if(preorder[idx] == -1){
         return NULL;
     }
-
-    cout<<"Enter the value at left of "<<data<<endl;
-    root -> left = buildTree(root -> left);
-
-    cout<<"Enter the value at right of "<<data<<endl;
-    root -> right = buildTree(root -> right);
-
-    return root;
+    
+    TreeNode* node = new TreeNode(preorder[idx]);
+    node -> left = buildTree(preorder);
+    node -> right = buildTree(preorder);
+    return node;
 }
 
-void inorder(node* root){
-    if(root == NULL){
-        return;
+void preorder(TreeNode* root){
+    if(root == NULL) return;
+
+    cout<<root -> val<<" ";
+    preorder(root -> left);
+    preorder(root -> right);
+}
+
+void lot(TreeNode* root){
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while(!q.empty()){
+        int size = q.size();
+
+        for(int i = 0; i < size; i++){
+            TreeNode* temp = q.front();
+            cout<<temp -> val<<" ";
+            q.pop();
+
+            if(temp -> left){
+                q.push(temp -> left);
+            }
+            if(temp -> right){
+                q.push(temp -> right);
+            }
+        }
+        cout<<endl;
     }
-
-    inorder(root -> left);
-    cout<<root->data<<" ";
-    inorder(root -> right);
 }
+
 
 int main(){
-    node* root = NULL;
+    vector<int> arr = {1, 3, 7, -1, -1, 11, -1, -1, 5, 17, -1, -1, -1};
+    TreeNode* node = buildTree(arr);
 
-    root = buildTree(root);
-
+    preorder(node);
     cout<<endl;
-
-    inorder(root);
-
-
-    return 0;
+    lot(node);
 }
