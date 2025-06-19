@@ -1,4 +1,6 @@
-// There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit [or Zero edits] away.
+// There are three types of edits that can be performed on strings: insert a character, 
+// remove a character, or replace a character. Given two strings,
+// write a function to check if they are one edit [or Zero edits] away.
 
 // Example
 // pale, ple -> true
@@ -12,40 +14,31 @@ using namespace std;
 class Solution{
 public:
     bool away(string s1, string s2){
-        int n = s1.length();
-        int m = s2.length();
+        vector<int> charArray(26, 0);
 
-        if(abs(n - m) > 1) return false;
 
-        string ns1 = s1.length() < s2.length() ? s1 : s2;
-        string ns2 = s1.length() < s2.length() ? s2 : s1;
-
-        int idx1 = 0;
-        int idx2 = 0;
-
-        bool foundDifference = false;
-
-        while(idx2 < s2.length() && idx1 < s1.length()){
-            if(ns1[idx1] != ns2[idx2]){
-                if(foundDifference) return false;
-
-                foundDifference = true;
-
-                if(ns1.length() == ns2.length()) idx1++;
-            }
-            else{
-                idx1++;
-            }
-            idx2++;
+        for(int i = 0; i < s1.size(); i++){
+            charArray[s1[i] - 'a']++;
         }
-        return true;
+
+        for(int i = 0; i < s2.size(); i++){
+            charArray[s2[i] - 'a']--;
+        }
+
+        int count = 0;
+
+        for(int i = 0; i < 26; i++){
+            count += abs(charArray[i]);
+        }
+
+        return count <= 2;
     }
 };
 
 int main()
 {
     Solution sol;
-    string s1 = "pale", s2 = "bae";
+    string s1 = "pale", s2 = "pae";
 
     sol.away(s1, s2) ? cout<<"True" : cout<<"False";
     return 0;
