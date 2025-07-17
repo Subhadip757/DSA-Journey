@@ -1,15 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+using namespace std;
 
 class Solution
 {
 public:
-    int numIslands(std::vector<std::vector<char>> &grid)
+    int numIslands(vector<vector<char>> &grid)
     {
         int n = grid.size();
         int m = grid[0].size();
-        std::vector<std::vector<int>> vis(n, std::vector<int>(m, 0));
+        vector<vector<int>> vis(n, vector<int>(m, 0));
         int cnt = 0;
         for (int i = 0; i < n; i++)
         {
@@ -25,7 +26,7 @@ public:
         return cnt;
     }
 
-    void dfs(int row, int col, std::vector<std::vector<int>> &vis, std::vector<std::vector<char>> &grid)
+    void dfs(int row, int col, vector<vector<int>> &vis, vector<vector<char>> &grid)
     {
         vis[row][col] = 1;
         int n = grid.size();

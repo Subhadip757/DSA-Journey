@@ -1,4 +1,4 @@
-#include <bits/stc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Node
@@ -32,7 +32,7 @@ double maxSubtreeAverage(Node *root)
     if (!root)
         return 0.0;
 
-    double maxAvg = -1e9; // Initialize to a very small number
+    double maxAvg = -1e9;
     calculateSubtree(root, maxAvg);
 
     return maxAvg;

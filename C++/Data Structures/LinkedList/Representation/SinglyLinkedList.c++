@@ -22,8 +22,6 @@ class Node{
 };
 
 void InsertAtHead(Node* &head, int d){
-    
-    //new node create
     Node* temp = new Node(d);
     temp -> next = head;
     head = temp;
@@ -36,8 +34,6 @@ void InsertAtTail(Node* &tail, int d){
 }
 
 void InsertAtPosition(Node* tail,Node* &head, int position, int d){
-
-    //insert at start
     if(position == 1){
         InsertAtHead(head, d);
         return;
@@ -51,7 +47,6 @@ void InsertAtPosition(Node* tail,Node* &head, int position, int d){
         count++;
     }
     
-    //Inserting at last position
     if(temp -> next == NULL){
         InsertAtTail(tail, d);
         return;
@@ -70,10 +65,10 @@ void DeleteNode(int position, Node* &head, Node*& tail) {
         return;
     }
 
-    if (position == 1) { // Delete the first node
+    if (position == 1) { 
         Node* temp = head;
         head = head->next;
-        temp->next = NULL; // Avoid deleting next nodes recursively
+        temp->next = NULL;
         delete temp;
         return;
     }
@@ -82,7 +77,6 @@ void DeleteNode(int position, Node* &head, Node*& tail) {
     Node* curr = head;
     int count = 1;
 
-    // Find the node before the node to be deleted
     while (count < position && curr != NULL) {
         prev = curr;
         curr = curr->next;
@@ -94,7 +88,6 @@ void DeleteNode(int position, Node* &head, Node*& tail) {
         return;
     }
 
-    // Update tail if the last node is deleted
     if (curr->next == NULL) {
         tail = prev;
     }

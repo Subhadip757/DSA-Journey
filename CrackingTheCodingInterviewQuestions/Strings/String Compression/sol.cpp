@@ -20,7 +20,6 @@ public:
                 count = 1;
             }
         }
-
         return res;
     }
 };
@@ -31,6 +30,7 @@ int main()
     string str = "aabcccccaa";
     
     string ans = sol.compress(str);
-    cout<<ans;
+    cout<<"\nNew String: "<<ans<<endl;
+    cout<<"\nSize of the String: "<<ans.size()<<endl<<endl;
     return 0;
 }
