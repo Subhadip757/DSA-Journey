@@ -1,0 +1,1 @@
+{"name":"Local: LineTrip","url":"/Users/subhadip/DSA-Journey-1/CodeForces/800 rated/CP-31Sheet/LineTrip.cpp","tests":[{"id":1754652824514,"input":"3\n3 7\n1 2 5\n3 6\n1 2 5\n1 10\n7\n","output":"4\n3\n7\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/subhadip/DSA-Journey-1/CodeForces/800 rated/CP-31Sheet/LineTrip.cpp","group":"local","local":true}

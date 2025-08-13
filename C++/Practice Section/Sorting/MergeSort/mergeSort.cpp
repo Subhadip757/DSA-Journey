@@ -1,54 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void merge(int start, int end, int mid, vector<int> &arr){
-    vector<int> temp;
-    
-    int i = start;
-    int j = mid + 1;
-
-    while(i <= mid && j <= end){
-        if(arr[i] <= arr[j]){
-            temp.push_back(arr[i]);
-            i++;
+void merge(vector<int> &arr, int start, int mid, int end){
+    for(int i = start; i <= mid; i++){
+        if(arr[i] > arr[mid]){
+            swap(arr[i], arr[mid]);
         }
-        else{
-            temp.push_back(arr[j]);
-            j++;
-        }
-    }
-
-    while(i <= mid){
-        temp.push_back(arr[i]);
-        i++;
-    }
-
-    while(j <= end){
-        temp.push_back(arr[j]);
-        j++;
-    }
-
-    for(int ind = 0; ind < temp.size(); ind++){
-        arr[start + ind] = temp[ind];
     }
 }
 
-void mergeSort(int start, int end, vector<int> &arr){
-    if(start < end){
-        int mid = start + (end - start)/2;
-        mergeSort(start, mid, arr);
-        mergeSort(mid + 1, end, arr);
+void mergeSort(vector<int> &arr, int start, int end){
+    int mid = start + (end - start)/2;
 
-        merge(start, end, mid, arr);
-    }
+    mergeSort(arr, start, mid);
+    mergeSort(arr, mid + 1, end);
+
+    merge(arr, start, mid, end);
 }
-
-int main(){
-    vector<int> arr = {5, 9, 1, 2, 10, 22, 8, 7};
-    mergeSort(0, arr.size() - 1, arr);
-
-    for(int num : arr){
-        cout<<num<<" ";
-    }
-
+int main()
+{
+    return 0;
 }

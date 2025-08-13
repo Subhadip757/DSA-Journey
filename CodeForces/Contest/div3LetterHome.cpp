@@ -5,6 +5,7 @@ using namespace std;
 
 int main() {
     int t; cin >> t;
+    
     while(t--) {
         int n, s;
         cin >> n >> s;
@@ -16,5 +17,6 @@ int main() {
         int steps = (max_x - min_x) + min(abs(s - min_x), abs(s - max_x));
         cout << steps << endl;
     }
+
     return 0;
 }

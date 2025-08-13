@@ -1,0 +1,177 @@
+/*
+Board Games
+Problem Description
+Ankitha enjoys finding new games. One day, she found a grid with dimensions M*N and decided to make up a special game to play on it. When Ankitha came up with the idea for the new game, her friend Akhil joined her. She then decided to share and explain the game to him.
+
+Akhil is given a grid with dimensions M*N, where each cell contains either 0 or 1. Additionally, he is provided with the coordinates of source and destination cells.You can only move to places whose value is 0. Furthermore, he is given the move rule (x, y) which helps in finding the location for the next move. From the given cell, you can move in four directions (forward, back,right ,left), unless they are out of grid. The rules for finding the next move from a current cell are given below.
+
+For moving forward, add the move rule to the current cell.
+For moving right, from current position add the move rule, rotate the path 90 degree clockwise,
+For moving left, from current position add the move rule, rotate the path 90 degree anticlockwise direction,
+For moving backward, from current position add the move rule, rotate the path 180 degree in clock or anti clockwise.
+The rules can be understood better from the following example. Let the current cell be (1,1) and the move rule as (1,2)
+
+on forward the next cell would be (2,3) ,
+on right the next cell would be (3,0),
+left (-1,2) and back (0,-1) are out of grid.
+
+Obeying the given move rule, find out minimum how many cells he need to travel in order to reach the destination.
+
+Constraints
+4 <= M, N <= 50
+
+Input
+First line consist of two space separated integers M and N denoting the number of rows and columns in the grid.
+
+Next M lines consists of N space separated integers representing the grid.
+
+Next line consists of two space separated integers denoting source cell.
+
+Next line consists of two space separated integers denoting destination cell.
+
+Last line consists of two space separated integer representing move rule.
+
+Output
+Print a single integer denoting the minimum moves required to reach the destination.
+
+Time Limit (secs)
+1
+
+Examples
+Example 1
+
+Input
+
+6 6
+
+0 1 0 0 0 0
+
+0 0 0 0 0 1
+
+0 1 0 0 0 0
+
+1 1 0 0 0 1
+
+0 0 0 0 0 0
+
+1 1 0 0 1 0
+
+1 0
+
+5 3
+
+1 2
+
+Output
+
+3
+
+Explanation
+
+Akhil needs to move from (1, 0) to (5, 3) and the given step for next move is (1, 2).
+
+In order to minimise the number of moves, he follows the path (1,0) -> (2,2) -> (3,4) ->(5,3) where in total he made 3 moves. No other paths will give moves less than 3. Hence print 3 as the output.
+
+Example 2
+
+Input
+
+6 6
+
+0 0 0 0 1 0
+0 0 1 0 0 1
+0 1 0 1 0 0
+1 1 1 0 0 0
+1 0 0 0 0 1
+1 0 0 1 1 0
+
+0 0
+
+4 4
+
+0 2
+
+Output
+
+4
+
+Explanation
+
+Akhil needs to move from (0, 0) to (4, 4) and the given step for next move is (0, 2).
+
+In order to minimise the number of moves, he follows the path (0,0) -> (0,2) -> (2,2) -> (2,4) -> (4,4) where in total he made 4 moves. No other paths will give moves less than 4. Hence print 4 as the output.
+*/
+
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int rows, cols;
+
+bool canTravel(int x, int y, vector<vector<int>> &board, vector<vector<bool>> &explored) {
+    return x >= 0 && x < rows && y >= 0 && y < cols && board[x][y] == 0 && !explored[x][y];
+}
+
+int computeSteps(vector<vector<int>> &board, pair<int, int> start, pair<int, int> goal, pair<int, int> step) {
+    vector<pair<int, int>> moves = {
+        {step.first, step.second},             
+        {step.second, -step.first},            
+        {-step.second, step.first},            
+        {-step.first, -step.second}            
+    };
+
+    vector<vector<bool>> explored(rows, vector<bool>(cols, false));
+    queue<pair<int, int>> bfsQueue;
+
+    bfsQueue.push(start);
+    explored[start.first][start.second] = true;
+
+    int level = 0;
+
+    while (!bfsQueue.empty()) {
+        int nodesAtLevel = bfsQueue.size();
+
+        while (nodesAtLevel--) {
+            auto current = bfsQueue.front();
+            bfsQueue.pop();
+
+            if (current == goal) {
+                return level;
+            }
+
+            for (auto dir : moves) {
+                int nx = current.first + dir.first;
+                int ny = current.second + dir.second;
+
+                if (canTravel(nx, ny, board, explored)) {
+                    explored[nx][ny] = true;
+                    bfsQueue.push({nx, ny});
+                }
+            }
+        }
+
+        level++;
+    }
+
+    return -1; 
+}
+
+int main() {
+    cin >> rows >> cols;
+
+    vector<vector<int>> board(rows, vector<int>(cols));
+    for (int r = 0; r < rows; r++)
+        for (int c = 0; c < cols; c++)
+            cin >> board[r][c];
+
+    pair<int, int> source, destination, rule;
+    cin >> source.first >> source.second;
+    cin >> destination.first >> destination.second;
+    cin >> rule.first >> rule.second;
+
+    int result = computeSteps(board, source, destination, rule);
+    cout << result << endl;
+
+    return 0;
+}
