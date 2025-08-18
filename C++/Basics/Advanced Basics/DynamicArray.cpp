@@ -19,14 +19,14 @@ int main()
     // char *c = &ch;
     // cout << sizeof(c) << endl;
 
-    int n;
-    cin >> n;
+    // int n;
+    // cin >> n;
 
     // varirable size array
-    int *arr = new int[n];
+    // int *arr = new int[n];
     char *ch = new char[20];
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 26; i++)
     {
         ch[i] = i + 'a';
     }
@@ -36,7 +36,7 @@ int main()
     //     cin >> arr[i];
     // }
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 26; i++)
     {
         cout << ch[i] << " ";
     }

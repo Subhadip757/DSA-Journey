@@ -92,6 +92,17 @@ int main(){
     cout<<"Value of b: "<<b<<endl;
 
     //------------------Trick #7---------------------
+    int x9 = 5;
+    int k5 = 7;
+
+    // If number of set bits in a is x
+    // number of set bits in b is y
+    // number of set bits in a ^ b is z
+    // then z is even if x + y is even
+    // z is odd if x + y is odd
+
+
+    //------------------Trick #8---------------------
     // Toggle values
     int value = 5;
     int tog1 = 5;
@@ -101,6 +112,16 @@ int main(){
     cout<<"After toggling: "<<toggleValue<<endl;
 
 
+    //------------------Trick #9---------------------
+    // 1. A + B = (A ^ B) + 2(A & B)
+    // 2. A + B = (A | B) + (A & B) 
 
+    //------------------Trick #10---------------------
+    // Finding the number of set bits in number X
 
+    unsigned int temp1 = 9;
+    cout<<"Number of set bits: "<<__builtin_popcount(temp1)<<endl;
+
+    unsigned long long temp2 = 19;
+    cout<<"Number of set bits in ll: "<<__builtin_popcountll(temp2)<<endl;
 }
