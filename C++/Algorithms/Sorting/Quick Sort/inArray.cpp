@@ -1,64 +1,54 @@
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int partition(int arr[], int s, int e){
+int partition(vector<int> &arr, int s, int e){
     int pivot = arr[s];
+    int i = s, j = e;
 
-    int count = 0;
-    for(int i = s + 1; i <= e; i++){
-        if(arr[i] <= pivot){
-            count++;
-        }
-    }
-
-    //place pivot at right position
-    int pivotIndex = s + count;
-    swap(arr[pivotIndex],arr[s]);
-
-    //left and right part
-    int i=s,j=e;
-
-    while(i < pivotIndex && j > pivotIndex){
-        while(arr[i] < pivot){
+    while(i < j){
+        while(i <= e && arr[i] <= pivot){
             i++;
         }
-        while(arr[j] > pivot){
+        while(j >= s && arr[j] > pivot){
             j--;
         }
-        if(i < pivotIndex && j > pivotIndex){
-            swap(arr[i++], arr[j--]);
+        if(i < j){
+            swap(arr[i], arr[j]);
         }
     }
-    return pivotIndex;
+    swap(arr[s], arr[j]);
+    return j;
 }
 
-void quickSort(int arr[], int s, int e){
-
-    //base case
-    if(s >= e){
-        return ;
+void quickSort(vector<int> &arr, int s, int e){
+    if(s < e){
+        int part = partition(arr, s, e);
+        quickSort(arr, s, part - 1);
+        quickSort(arr, part + 1, e);
     }
-
-    //partitionw
-    int p = partition(arr, s, e);
-    
-    //left
-    quickSort(arr, s, p-1);
-
-    //right
-    quickSort(arr, p+1, e);
 }
 
-int main(){
-    int arr[5] = {2,4,1,6,9};
+vector<int> solve(vector<int> arr) {
+    quickSort(arr, 0, arr.size() - 1);
+    return arr;
+}
 
-    int n = 5;
-
-    quickSort(arr, 0, n-1);
-
-    for(int i=0; i<n; i++){
-        cout<<arr[i]<<" ";
+int main()
+{
+    vector<int> arr = {4, 6, 2, 5, 7, 9, 1, 3};
+    int n = arr.size();
+    cout << "Before Using quick Sort: " << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
     }
-    cout<<endl;
+    cout << endl;
+
+    arr = solve(arr);
+    cout << "After Using quick sort: " << "\n";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
+    return 0;
 }

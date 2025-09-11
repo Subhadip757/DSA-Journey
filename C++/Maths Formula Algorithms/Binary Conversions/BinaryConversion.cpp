@@ -26,8 +26,8 @@ int decimalToBinary(int n)
     {
         int dig = n % 2;
         ans += dig * power;
-        power *= 2;
-        n /= 10;
+        power *= 10;
+        n /= 2;
     }
     return ans;
 }
@@ -36,6 +36,6 @@ int main()
 {
 
     cout << binaryToDecimal(101) << endl;
-    cout << decimalToBinary(5) << endl;
+    cout << decimalToBinary(4) << endl;
     return 0;
 }

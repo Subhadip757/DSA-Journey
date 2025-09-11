@@ -13,6 +13,7 @@ int maxValue(vector<int> &wei, vector<int> &val, int w, int n, vector<vector<int
         return dp[n][w] = maxValue(wei, val, w, n - 1, dp);
     }
 }
+
 int main(){
     vector<int> wei = {1, 3, 4, 5};
     vector<int> val = {1, 4, 5, 7};
@@ -20,7 +21,6 @@ int main(){
 
     int n = wei.size();
     vector<vector<int>> dp(n + 1, vector<int> (w + 1, -1));
-
 
     cout<<"Max Value: "<<maxValue(wei, val, w, n, dp);
 }

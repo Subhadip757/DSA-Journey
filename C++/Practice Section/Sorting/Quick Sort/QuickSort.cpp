@@ -1,57 +1,45 @@
-#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
 
-using namespace std; 
-
-int partition(int arr[], int s, int e){
+int partition(vector<int> &arr, int s, int e){
     int pivot = arr[s];
+    int i = s, j = e;
 
-    int count = 0;
-    for(int i = s + 1; i <= e;i++){
-        if(arr[i] <= pivot){
-            count++;
-        }
-    }
-
-    int pivotIndex = s + count;
-    swap(arr[pivotIndex], arr[s]);
-
-    int i=s, j=e;
-
-    while(i < pivotIndex && j > pivotIndex){
-        while(arr[i] < pivot){
+    while(i < j){
+        while(i <= e && arr[i] <= pivot){
             i++;
         }
-        while(arr[j] > pivot){
+        while(j >= s && arr[j] > pivot){
             j--;
         }
-        if(i < pivotIndex && j > pivotIndex){
-            swap(arr[i++], arr[j--]);
+        if(i < j){
+            swap(arr[i], arr[j]);
         }
     }
-    return pivotIndex;
+    swap(arr[s], arr[j]);
+    return j;
 }
 
-void quickSort(int arr[], int s, int e){
-    if(s >= e){
-        return ;
+void quickSort(vector<int> &arr, int s, int e){
+    if(s < e){
+        int part = partition(arr, s, e);
+        quickSort(arr, s, part - 1);
+        quickSort(arr, part + 1, e);
     }
-    int p = partition(arr, s, e);
-
-    quickSort(arr, s, p-1);
-
-    quickSort(arr, p + 1,e);
 }
 
 int main(){
-    int arr[5] = {5,2,7,9,1};
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    int size = 5;
+    vector<int> arr = {9, 3, 10, 22, 1, 5, 20};
+    int n = arr.size();
+    quickSort(arr, 0, n - 1);
 
-    quickSort(arr, 0 , size - 1);
-
-    for(int i=0; i<size; i++){
-        cout<<arr[i]<<" ";
+    for(int it : arr){
+        cout<<it<<" ";
     }
 
-    cout<<endl;
+    return 0;
 }

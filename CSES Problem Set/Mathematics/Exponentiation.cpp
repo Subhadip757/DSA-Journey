@@ -2,13 +2,14 @@
 using namespace std;
 typedef long long ll;
 
-ll solve(ll a, ll b, ll m){
+ll pow(int a, int b, int m){
     if(b == 0) return 1;
     if(b == 1) return a;
 
-    ll x = solve(a, b/2, m);
+    ll x = pow(a, b/2, m) % m;
     ll ans = 0;
-    if((b & 1) != 0){
+
+    if(b % 2 != 0){
         ans = (x % m * x % m) % m;
         ans = (ans % m * a % m) % m;
     }
@@ -19,12 +20,18 @@ ll solve(ll a, ll b, ll m){
     return ans;
 }
 
+void solve(){
+    int a, b;
+    cin>>a>>b;
+    int m = 1e9 + 7;
+
+    cout<<pow(a, b, m)<<endl;
+}
+
 int main(){
-    ll n; cin>>n;
-
-    ll a = 2;
-    ll m = 1e9 + 7;
-
-    cout<<solve(a, n, m)<<endl;
+    int t; cin>>t;
+    while(t--){
+        solve();
+    }
     return 0;
 }

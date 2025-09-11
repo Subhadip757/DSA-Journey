@@ -45,6 +45,18 @@
     "unordered_map": "cpp",
     "variant": "cpp",
     "new": "cpp",
-    "unordered_set": "cpp"
+    "unordered_set": "cpp",
+    "__threading_support": "cpp",
+    "__tree": "cpp",
+    "complex": "cpp",
+    "cstddef": "cpp",
+    "memory": "cpp",
+    "iomanip": "cpp",
+    "list": "cpp",
+    "map": "cpp",
+    "set": "cpp",
+    "sstream": "cpp",
+    "tuple": "cpp",
+    "algorithm": "cpp"
   }
 }
