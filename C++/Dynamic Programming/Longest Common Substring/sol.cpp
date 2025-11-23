@@ -4,7 +4,6 @@ using namespace std;
 class Solution {
   public:
     int longestCommonSubstr(string& s1, string& s2) {
-        // your code here
         int n = s1.size();
         int m = s2.size();
         vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));

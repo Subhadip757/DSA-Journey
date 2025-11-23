@@ -48,9 +48,11 @@ int spanningTree(int V, vector<vector<int>> adj[])
 
     for (int i = 0; i < V; i++)
     {
-        for (int j = 0; j < adj[i].size(); j++)
+        for (auto it : adj[i])
         {
-            pq.push({adj[i][j][1], {i, adj[i][j][0]}});
+            int node = it[0];
+            int wt = it[1];
+            pq.push({wt, {i, node}});
         }
     }
 
@@ -71,4 +73,35 @@ int spanningTree(int V, vector<vector<int>> adj[])
         }
     }
     return cost;
+}
+
+int main() {
+    int V = 4;
+    vector<vector<int>> adj[V];
+
+    // Example graph:
+    // 0 -- 1 -- 1
+    // 0 -- 3 -- 2
+    // 1 -- 3 -- 2
+    // 1 -- 6 -- 3
+    // 2 -- 4 -- 3
+
+    adj[0].push_back({1, 1});
+    adj[1].push_back({0, 1});
+
+    adj[0].push_back({2, 3});
+    adj[2].push_back({0, 3});
+
+    adj[1].push_back({2, 3});
+    adj[2].push_back({1, 3});
+
+    adj[1].push_back({3, 6});
+    adj[3].push_back({1, 6});
+
+    adj[2].push_back({3, 4});
+    adj[3].push_back({2, 4});
+
+    cout << "Minimum Spanning Tree Cost: " << spanningTree(V, adj) << endl;
+
+    return 0;
 }

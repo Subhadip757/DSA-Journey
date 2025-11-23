@@ -3,35 +3,27 @@ using namespace std;
 typedef long long ll;
 
 int main(){
-    int t; cin>>t;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin>>t;
+
     while(t--){
+        ll ans = 0;
         ll x, y;
-        cin>>x>>y;
+        cin >> x >> y;
 
-        ll m = max(x, y);
-        ll val = 0;
-
-        if(m % 2 != 0){
-            if(m == y){
-                // bottom edge
-                val = m * m - (x - 1);
-            }
-            else if(m == x){
-                // right edge
-                val = (m - 1) * (m - 1) + y;
-            }
+        if(x <= y){
+            if((y & 1) != 0) ans = (y * y) - (x - 1);
+            else ans = (y - 1) * (y - 1) + x;
         }
         else{
-            if(m == y){
-                // top edge
-                val = (m - 1) * (m - 1) + x;
-            }
-            else if(m == x){
-                //left edge
-                val = m * m - (y - 1);
-            }
+            if((x & 1) == 0) ans = (x * x) - (y - 1);
+            else ans = (x - 1) * (x - 1) + y;
         }
-        cout<<val<<endl;
+        cout<<ans<<endl;
     }
+
     return 0;
 }

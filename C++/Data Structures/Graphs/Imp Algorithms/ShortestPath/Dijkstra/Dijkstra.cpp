@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> dijkstra(vector<vector<int>> &vec, int V, int E, int src)
-{
+vector<int> dijkstra(vector<vector<int>> &vec, int V, int E, int src) {
+
     vector<vector<pair<int, int>>> adj(V);
 
     for(auto edge : vec){
@@ -35,14 +35,11 @@ vector<int> dijkstra(vector<vector<int>> &vec, int V, int E, int src)
     return dist;
 }
 
-int main()
-{
-    // Example input
-    int vertices = 5; // Number of vertices
-    int edges = 7;    // Number of edges
-    int source = 0;   // Source node
+int main(){
+    int vertices = 5; 
+    int edges = 7;
+    int source = 0; 
 
-    // Graph represented as a vector of edges: {u, v, weight}
     vector<vector<int>> vec = {
         {0, 1, 4},
         {0, 2, 8},

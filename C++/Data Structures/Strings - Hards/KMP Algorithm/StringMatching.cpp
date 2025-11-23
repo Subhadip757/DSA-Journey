@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void lpsFind(vector<int> &lps, string &s)
-{
+void lpsFind(vector<int> &lps, string &s) {
     int prefix = 0, suffix = 1;
 
     while (suffix < s.size())
@@ -28,8 +27,7 @@ void lpsFind(vector<int> &lps, string &s)
     }
 }
 
-int strStr(string s1, string s2)
-{
+int strStr(string s1, string s2) {
     vector<int> lps(s2.size(), 0);
     lpsFind(lps, s2);
 
@@ -58,4 +56,18 @@ int strStr(string s1, string s2)
         }
     }
     return -1;
+}
+
+int main()
+{
+    string text = "abxabcabcaby";
+    string pattern = "abcaby";
+
+    int index = strStr(text, pattern);
+    if (index != -1)
+        cout << "Pattern found at index: " << index << "\n";
+    else
+        cout << "Pattern not found\n";
+
+    return 0;
 }

@@ -44,7 +44,7 @@ public:
         cout<<"Gear shifted to: "<<currentGear<<endl;
     }
 
-    void accelerate(){
+    void accelerate() override{
         if(!isEngineOn){
             cout<<brand<<" "<<model<<": Engine is not turned on"<<endl;
             return;
@@ -61,7 +61,7 @@ public:
         cout<<"Current Speed: "<<currentSpeed<<endl;
     }
 
-    void brake(){
+    void brake() override{
         if(!isEngineOn){
             cout<<brand<<" "<<model<<": Engine is not turned on"<<endl;
             return;
@@ -91,7 +91,7 @@ public:
         cout<<"Battery charged to: "<<batteryLevel<<endl;
     }
 
-    void accelerate(){
+    void accelerate() override{
         if(!isEngineOn){
             cout<<brand<<" "<<model<<": Engine is not turned on"<<endl;
             return;
@@ -101,7 +101,7 @@ public:
         cout<<brand<<" "<<model<<": Speed increased to "<<currentSpeed<<endl;
     }
 
-    void brake(){
+    void brake() override{
         if(!isEngineOn){
             cout<<brand<<" "<<model<<": Engine is not turned on"<<endl;
             return;

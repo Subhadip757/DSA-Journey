@@ -1,11 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// User function template for C++
 class Solution {
-  public:
+public:
     void floydWarshall(vector<vector<int>> &dist) {
-        // Code here
         int inf = 1e8;
         
         int n = dist.size();
@@ -23,19 +21,15 @@ class Solution {
 };
 
 
-int main()
-{
-      // Example input
-    int vertices = 5; // Number of vertices
-    int num_edges = 7;    // Number of edges
-    int source = 0;   // Source node
+int main() {
+    int vertices = 5;
+    int num_edges = 7;
+    int source = 0;
     Solution sol;
 
-    // Build adjacency matrix
     int inf = 1e8;
     vector<vector<int>> adj(vertices, vector<int>(vertices, inf));
     for (int i = 0; i < vertices; i++) adj[i][i] = 0;
-    // Edge list: {u, v, weight}
     vector<vector<int>> edge_list = {
         {0, 1, 4},
         {0, 2, 8},
@@ -47,12 +41,11 @@ int main()
         
     for (auto &e : edge_list) {
         adj[e[0]][e[1]] = e[2];
-        adj[e[1]][e[0]] = e[2]; // Remove this line if the graph is directed
+        adj[e[1]][e[0]] = e[2];
     }
 
     sol.floydWarshall(adj);
 
-    // Print the shortest distances between all pairs
     cout << "Shortest distances between every pair of vertices:\n";
     for (int i = 0; i < vertices; i++) {
         for (int j = 0; j < vertices; j++) {

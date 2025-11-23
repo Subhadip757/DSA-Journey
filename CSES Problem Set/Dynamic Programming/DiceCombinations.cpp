@@ -4,24 +4,24 @@ typedef long long ll;
 
 int m = 1e9 + 7;
 
-int solve(int n, vector<int> &dp){
-    if(n == 0) return 1;
-    if(n < 0) return 0;
-    if(dp[n] != -1) return dp[n];
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    ll ans = 0;
-    for(int dice = 1; dice <= 6; dice++){
-        ans = (ans + solve(n - dice, dp)) % m;
+    int n; 
+    cin >> n;
+
+    vector<ll> dp(n + 1, 0);
+    dp[0] = 1;
+
+    for(int i = 1; i <= n; i++){
+        for(int dice = 1; dice <= 6; dice++){
+            if(i - dice >= 0){
+                dp[i] = (dp[i] + dp[i - dice]) % m;
+            }
+        }
     }
 
-    return dp[n] = ans;
-}
-
-int main(){
-    int n; cin>>n;
-    vector<int> dp(n + 1, -1);
-
-    cout<<solve(n, dp);
-    
+    cout<<dp[n];
     return 0;
 }
