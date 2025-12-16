@@ -2,7 +2,7 @@
 using namespace std;
 typedef long long ll;
 
-void solve(string s, vector<int> &lps){
+void lpsFind(vector<int> &lps, string s){
     int prefix = 0, suffix = 1;
 
     while(suffix < s.size()){
@@ -23,9 +23,10 @@ void solve(string s, vector<int> &lps){
     }
 }
 
-int kmp(string s1, string s2){
-    vector<int> lps(s2.size());
-    solve(s2, lps);
+int strStr(string s1, string s2){
+    vector<int> lps(s2.size(), 0);
+    lpsFind(lps, s2);
+
     int first = 0, second = 0;
 
     while(first < s1.size()){
@@ -41,9 +42,7 @@ int kmp(string s1, string s2){
                 second = lps[second - 1];
             }
         }
-        if(second == s2.size()){
-            return first - second;
-        }
+        if(second == s2.size()) return first - second;
     }
 
     return -1;
@@ -53,14 +52,15 @@ int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    string text = "abxabcabcaby";
-    string pattern = "abcaby";
+    string s1 = "abcde", s2 = "cde";
+    int idx = strStr(s1, s2);
 
-    int index = kmp(text, pattern);
-    if (index != -1)
-        cout << "Pattern found at index: " << index << "\n";
-    else
-        cout << "Pattern not found\n";
+    if(idx != -1){
+        cout<<"Index found at " << idx;
+    }
+    else{
+        cout<<"Pattern not found";
+    }
 
     return 0;
 }

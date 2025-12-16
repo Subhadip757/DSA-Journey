@@ -2,7 +2,7 @@
 using namespace std;
 typedef long long ll;
 
-int partition(vector<int> &arr, int s, int e){
+int partition(int s, int e, vector<int> &arr){
     int pivot = arr[s];
     int i = s, j = e;
 
@@ -21,24 +21,28 @@ int partition(vector<int> &arr, int s, int e){
     return j;
 }
 
-void quickSort(vector<int> &arr, int s, int e){
+void quickSort(int s, int e, vector<int> &arr){
     if(s < e){
-        int part = partition(arr, s, e);
-        quickSort(arr, s, part - 1);
-        quickSort(arr, part + 1, e);
+        int p = partition(s, e, arr);
+        quickSort(s, p - 1, arr);
+        quickSort(p + 1, e, arr);
     }
+}
+
+vector<int> solve(vector<int> &arr){
+    quickSort(0, arr.size() - 1, arr);
+    return arr;
 }
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    vector<int> arr = {9, 3, 10, 22, 1, 5, 20};
-    int n = arr.size();
-    quickSort(arr, 0, n - 1);
+    vector<int> arr = {19, 10, 12, 5, 8, 2, 1, 9};
+    solve(arr);
 
-    for(int it : arr){
-        cout<<it<<" ";
+    for(int x : arr){
+        cout<<x<<" ";
     }
 
     return 0;
