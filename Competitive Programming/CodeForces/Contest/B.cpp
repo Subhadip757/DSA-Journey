@@ -8,10 +8,7 @@ int main(){
 
     int t; cin>>t;
     while(t--){
-        int n, k;
-        string s1;
-        cin>>n>>k>>s1;
-
+        
     }
 
     return 0;
