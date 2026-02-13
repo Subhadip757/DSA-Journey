@@ -17,7 +17,9 @@
 // time taken will be by the 2nd mouse,
 // i.e. 4-0 = 4 minutes.
 
-#include <bits/stc++.h>
+#include <iostream>
+#include <algorithm>
+#include <climits>
 using namespace std;
 
 int assignMiceHoles(int N, int M[], int H[])

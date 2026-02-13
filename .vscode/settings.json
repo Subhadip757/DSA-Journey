@@ -58,5 +58,6 @@
     "sstream": "cpp",
     "tuple": "cpp",
     "algorithm": "cpp"
-  }
+  },
+  "cmake.sourceDirectory": "/Users/subhadip/DSA-Journey-1/Advanced Software Projects/codecrafters-shell-cpp"
 }

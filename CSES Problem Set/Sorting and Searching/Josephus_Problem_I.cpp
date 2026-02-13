@@ -9,14 +9,13 @@ int main(){
     int n;
     cin>>n;
 
-    vector<int> arr(n);
-    for(int i = 0; i < n; i++){
-        arr[i] = i + 1;
-    }
+    int start = 1;
 
-    for(int i = 0; i < n; i++){
+    while(start != n){
         
     }
+
+    
 
     return 0;
 }

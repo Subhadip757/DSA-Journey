@@ -2,8 +2,17 @@
 using namespace std;
 typedef long long ll;
 
-int minimumCoinSum(vector<int> &arr){
-    
+ll minimumCoinSum(vector<int> &arr, int n){
+    ll sum = 0;
+
+    for(int i = 0; i < n; i++){
+        if(arr[i] > sum + 1){
+            return sum + 1;
+        }
+        sum += arr[i];
+    }
+
+    return sum + 1;
 }
 
 int main(){
@@ -17,7 +26,9 @@ int main(){
         cin>>arr[i];
     }
 
-    cout<<minimumCoinSum(arr);
+    sort(arr.begin(), arr.end());
+
+    cout<<minimumCoinSum(arr, n);
 
     return 0;
 }

@@ -2,32 +2,29 @@
 using namespace std;
 typedef long long ll;
 
-int solve(int n, vector<int> &arr, vector<int> &dp){
-    if(n == 0) return 0;
-    if(n < 0) return 1e9;
-    if(dp[n] != -1) return dp[n];
-
-    int ans = 1e9;
-    for(int coin : arr){
-        ans = min(ans, 1 + solve(n - coin, arr, dp));
-    }
-
-    return dp[n] = ans;
-}
-
 int main(){
-    int n, target;
-    cin>>n>>target;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    vector<int> arr(n);
-    vector<int> dp(target + 1, -1);
+    int n, k;
+    cin>>n>>k;
+    vector<int> coins(n);
+
     for(int i = 0; i < n; i++){
-        cin>>arr[i];
+        cin>>coins[i];
     }
 
-    int ans = solve(target, arr, dp);
-    if(ans == 1e9) cout<<-1<<endl;
-    else cout<<ans<<endl;
+    const int INF = 1e9;
+    vector<int> dp(k + 1, INF);
+    dp[0] = 0;
+
+    for(int i = 0; i < n; i++){
+        for(int j = coins[i]; j <= k; j++){
+            dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+        }
+    }
+
+    cout<<(dp[k] == INF ? -1 : dp[k]);
 
     return 0;
 }

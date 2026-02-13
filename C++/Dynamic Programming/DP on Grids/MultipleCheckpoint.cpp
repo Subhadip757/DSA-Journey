@@ -21,6 +21,7 @@ int bfsShortest(const vector<vector<int>> &grid, pair<int, int> s, pair<int, int
     dq.push_back(s);
     int dr[4] = {1, -1, 0, 0};
     int dc[4] = {0, 0, 1, -1};
+    
     while (!dq.empty())
     {
         auto [r, c] = dq.front();

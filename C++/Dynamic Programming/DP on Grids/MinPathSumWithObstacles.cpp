@@ -10,10 +10,13 @@ long long minPathSumWithObstacles(const vector<vector<int>> &grid)
     int n = grid.size();
     if (n == 0)
         return 0;
+
     int m = grid[0].size();
     vector<long long> dp(m, INFLL);
+
     if (grid[0][0] != INT_MAX)
         dp[0] = grid[0][0]; // INT_MAX used as obstacle sentinel
+        
     for (int j = 1; j < m; j++)
     {
         if (grid[0][j] == INT_MAX)
@@ -21,6 +24,7 @@ long long minPathSumWithObstacles(const vector<vector<int>> &grid)
         else if (dp[j - 1] != INFLL)
             dp[j] = dp[j - 1] + grid[0][j];
     }
+
     for (int i = 1; i < n; i++)
     {
         if (grid[i][0] == INT_MAX)
@@ -35,6 +39,7 @@ long long minPathSumWithObstacles(const vector<vector<int>> &grid)
                 dp[j] = grid[i][j] + min(dp[j], dp[j - 1]);
         }
     }
+
     return dp[m - 1] >= INFLL ? -1 : dp[m - 1];
 }
 
